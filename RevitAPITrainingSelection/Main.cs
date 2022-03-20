@@ -19,13 +19,12 @@ namespace RevitAPITrainingSelection
             UIDocument uidoc = uiapp.ActiveUIDocument;
             Document doc = uidoc.Document;
 
-            List<FamilyInstance> fInstances = new FilteredElementCollector(doc, doc.ActiveView.Id)
-                .OfCategory(BuiltInCategory.OST_Doors)
-                .WhereElementIsNotElementType()
-                .Cast<FamilyInstance>()
+            var walls = new FilteredElementCollector(doc)
+                .OfClass(typeof(Wall))
+                .Cast<Wall>()
                 .ToList();
 
-            TaskDialog.Show("Doors count", fInstances.Count.ToString());
+            TaskDialog.Show("Wall info", walls.Count.ToString());
 
             return Result.Succeeded;
         }
